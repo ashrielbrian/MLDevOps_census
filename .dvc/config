@@ -1,0 +1,4 @@
+[core]
+    remote = awsremote
+['remote "awsremote"']
+    url = s3://udacity-mlops3-data/artifacts
