@@ -16,9 +16,8 @@ logging.basicConfig(filename=os.path.join(os.path.dirname(__file__), '..', 'logs
                     level=logging.INFO, )
 
 # Loads config
-with open('./model_config.yaml', 'r') as fp:
+with open(os.path.join(os.path.dirname(__file__), 'model_config.yaml'), 'r') as fp:
     config = yaml.safe_load(fp)
-
 
 # Loads census data
 data_filename = 'census.csv'
@@ -49,6 +48,15 @@ y_test_preds = inference(model, X_test)
 precision, recall, fbeta = compute_model_metrics(y_test, y_test_preds)
 logging.info(f'Model predictions gave precision: {precision}, recall: {recall}, fbeta: {fbeta}')
 
-# export model
-model_dest_path = os.path.join(os.path.dirname(__file__), '..', 'artifact', 'model', 'random_forest.pkl')
+
+# export artifacts
+model_dir = os.path.join(os.path.dirname(__file__), '..', 'artifact', 'model')
+
+# model export
+model_dest_path = os.path.join(model_dir, 'random_forest.pkl')
 dump(model, model_dest_path)
+
+# encoder and labelbinarizer export for inference
+dump(encoder, os.path.join(model_dir, 'oh_encoder.pkl'))
+dump(lb, os.path.join(model_dir, 'label_binarizer.pkl'))
+
