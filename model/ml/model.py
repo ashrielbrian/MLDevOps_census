@@ -1,3 +1,4 @@
+from joblib import load, dump
 import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import fbeta_score, precision_score, recall_score
@@ -65,3 +66,35 @@ def inference(model: RandomForestClassifier, X: np.array):
     """
     preds = model.predict(X)
     return preds
+
+def save_artifact(artifact, dest_path: str):
+    """ 
+        Saves the artifact to the dest_path.
+        Inputs
+        ------
+        artifact : Any
+            Pickleable/Serializable object
+        dest_path : str
+            Destination path to save artifact
+        Returns
+        -------
+        success, error_msg : tuple[str, str]
+    """
+    try:
+        dump(artifact, dest_path)
+    except Exception as err:
+        return False, str(err)
+    return True, None
+
+def load_artifact(target_path: str):
+    """ 
+        Loads the artifact from the target_path.
+        Inputs
+        ------
+        target_path : str
+            Target path the artifact is located
+        Returns
+        -------
+        artifact : Any
+    """
+    return load(target_path)
