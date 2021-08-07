@@ -1,11 +1,11 @@
-`race` category -> precision: 0.806, recall: 0.546, fbeta: 0.651 -- White.
-`race` category -> precision: 0.809, recall: 0.470, fbeta: 0.595 -- Black.
-`race` category -> precision: 0.703, recall: 0.659, fbeta: 0.680 -- Asian-Pac-Islander.
+`race` category -> precision: 0.807, recall: 0.544, fbeta: 0.650 -- White.
+`race` category -> precision: 0.807, recall: 0.465, fbeta: 0.590 -- Black.
+`race` category -> precision: 0.700, recall: 0.652, fbeta: 0.675 -- Asian-Pac-Islander.
 `race` category -> precision: 0.900, recall: 0.500, fbeta: 0.643 -- Amer-Indian-Eskimo.
-`race` category -> precision: 0.619, recall: 0.520, fbeta: 0.565 -- Other.
+`race` category -> precision: 0.565, recall: 0.520, fbeta: 0.542 -- Other.
 
 
-`sex` category -> precision: 0.797, recall: 0.560, fbeta: 0.658 -- Male.
-`sex` category -> precision: 0.825, recall: 0.466, fbeta: 0.596 -- Female.
+`sex` category -> precision: 0.797, recall: 0.558, fbeta: 0.656 -- Male.
+`sex` category -> precision: 0.834, recall: 0.467, fbeta: 0.599 -- Female.
 
 
