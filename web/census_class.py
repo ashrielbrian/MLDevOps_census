@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 
+
 class CensusClass(BaseModel):
     age: int
     workclass: str

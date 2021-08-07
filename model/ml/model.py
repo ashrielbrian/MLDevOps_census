@@ -9,19 +9,45 @@ from typing import List
 
 from .data import process_data
 
+
 class RFModel:
-    """ 
+    """
         Random forest classifier model. Uses the default paths to load the model artifacts if none is provided as args.
     """
-    _default_model_path     = os.path.join(os.path.dirname(__file__), '..', '..', 'artifact', 'model', 'random_forest.pkl')
-    _default_binarizer_path = os.path.join(os.path.dirname(__file__), '..', '..', 'artifact', 'model', 'label_binarizer.pkl')
-    _default_encoder_path   = os.path.join(os.path.dirname(__file__), '..', '..', 'artifact', 'model', 'oh_encoder.pkl')
+    _default_model_path = os.path.join(
+        os.path.dirname(__file__),
+        '..',
+        '..',
+        'artifact',
+        'model',
+        'random_forest.pkl')
+    _default_binarizer_path = os.path.join(
+        os.path.dirname(__file__),
+        '..',
+        '..',
+        'artifact',
+        'model',
+        'label_binarizer.pkl')
+    _default_encoder_path = os.path.join(
+        os.path.dirname(__file__),
+        '..',
+        '..',
+        'artifact',
+        'model',
+        'oh_encoder.pkl')
 
-    def __init__(self, model: RandomForestClassifier = None, binarizer: LabelBinarizer = None, encoder: OneHotEncoder = None):
+    def __init__(
+            self,
+            model: RandomForestClassifier = None,
+            binarizer: LabelBinarizer = None,
+            encoder: OneHotEncoder = None):
         # initialise - use default paths if none provided
-        self.model      = model if model else self._load_artifact(RFModel._default_model_path)
-        self.binarizer  = binarizer if binarizer else self._load_artifact(RFModel._default_binarizer_path)
-        self.encoder    = encoder if encoder else self._load_artifact(RFModel._default_encoder_path)
+        self.model = model if model else self._load_artifact(
+            RFModel._default_model_path)
+        self.binarizer = binarizer if binarizer else self._load_artifact(
+            RFModel._default_binarizer_path)
+        self.encoder = encoder if encoder else self._load_artifact(
+            RFModel._default_encoder_path)
 
         self._load_categorical_features()
 
@@ -31,16 +57,19 @@ class RFModel:
         return list(predicted_labels)
 
     def _load_artifact(self, target_path: str):
-        return load(target_path) 
-    
+        return load(target_path)
+
     def _load_categorical_features(self, config_path: str = None):
         import yaml
 
-        config_path = config_path if config_path else os.path.join(os.path.dirname(__file__), '..', 'model_config.yaml')
+        config_path = config_path if config_path else os.path.join(
+            os.path.dirname(__file__), '..', 'model_config.yaml')
         with open(config_path, 'r') as fp:
             self.CAT_FEATURES = yaml.safe_load(fp)['categorical_features']
 
 # Optional: implement hyperparameter tuning.
+
+
 def train_model(X_train, y_train, model_params):
     """
     Trains a machine learning model and returns it.
@@ -103,8 +132,9 @@ def inference(model: RandomForestClassifier, X: np.array):
     preds = model.predict(X)
     return preds
 
+
 def save_artifact(artifact, dest_path: str):
-    """ 
+    """
         Saves the artifact to the dest_path.
         Inputs
         ------
@@ -122,8 +152,9 @@ def save_artifact(artifact, dest_path: str):
         return False, str(err)
     return True, None
 
+
 def load_artifact(target_path: str):
-    """ 
+    """
         Loads the artifact from the target_path.
         Inputs
         ------
@@ -135,8 +166,12 @@ def load_artifact(target_path: str):
     """
     return load(target_path)
 
-def compute_slice_metrics(df: pd.DataFrame, category: str, rf_model: RFModel = RFModel()):
-    """ 
+
+def compute_slice_metrics(
+        df: pd.DataFrame,
+        category: str,
+        rf_model: RFModel = RFModel()):
+    """
         Computes model metrics based on data slices
         Inputs
         ------
@@ -156,17 +191,20 @@ def compute_slice_metrics(df: pd.DataFrame, category: str, rf_model: RFModel = R
     for cat_feature in df[category].unique():
         filtered_df = df[df[category] == cat_feature]
 
-        X, y, _, _ = process_data(filtered_df, 
-                                categorical_features=rf_model.CAT_FEATURES,
-                                label='salary',
-                                training=False, 
-                                encoder=rf_model.encoder, 
-                                lb=rf_model.binarizer)
+        X, y, _, _ = process_data(filtered_df,
+                                  categorical_features=rf_model.CAT_FEATURES,
+                                  label='salary',
+                                  training=False,
+                                  encoder=rf_model.encoder,
+                                  lb=rf_model.binarizer)
 
         print(f'Predicting slice of {category}: {cat_feature}')
         print(f'Num of rows in dataframe: {len(filtered_df)}')
         y_preds = rf_model.model.predict(X)
 
         precision, recall, fbeta = compute_model_metrics(y, y_preds)
-        predictions[cat_feature] = {'precision': precision, 'recall': recall, 'fbeta': fbeta}
+        predictions[cat_feature] = {
+            'precision': precision,
+            'recall': recall,
+            'fbeta': fbeta}
     return predictions
