@@ -1,0 +1,11 @@
+`race` category -> precision: 0.806, recall: 0.546, fbeta: 0.651 -- White.
+`race` category -> precision: 0.809, recall: 0.470, fbeta: 0.595 -- Black.
+`race` category -> precision: 0.703, recall: 0.659, fbeta: 0.680 -- Asian-Pac-Islander.
+`race` category -> precision: 0.900, recall: 0.500, fbeta: 0.643 -- Amer-Indian-Eskimo.
+`race` category -> precision: 0.619, recall: 0.520, fbeta: 0.565 -- Other.
+
+
+`sex` category -> precision: 0.797, recall: 0.560, fbeta: 0.658 -- Male.
+`sex` category -> precision: 0.825, recall: 0.466, fbeta: 0.596 -- Female.
+
+
