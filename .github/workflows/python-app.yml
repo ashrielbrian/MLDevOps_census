@@ -37,7 +37,6 @@ jobs:
         version: '2.5.4'
     - name: Sets up DVC remote
       run: |
-        pip install 'dvc[s3]'
         dvc remote add -d s3_artifacts ${{ env.DVC_REMOTE_REPOSITORY }}
         dvc pull
 
