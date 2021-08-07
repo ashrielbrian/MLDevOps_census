@@ -1,3 +1,4 @@
+import os
 from io import StringIO
 import pandas as pd
 from fastapi import FastAPI, UploadFile, File
@@ -5,8 +6,14 @@ from model.ml.model import RFModel
 from model.ml.data import process_data
 from .census_class import CensusClass
 
-rf_model = RFModel()
 
+if "DYNO" in os.environ and os.path.isdir(".dvc"):
+    os.system("dvc config core.no_scm true")
+    if os.system("dvc pull") != 0:
+        exit("dvc pull failed")
+    os.system("rm -r .dvc .apt/usr/lib/dvc")
+
+rf_model = RFModel()
 app = FastAPI()
 
 
