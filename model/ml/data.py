@@ -5,7 +5,7 @@ from sklearn.preprocessing import LabelBinarizer, OneHotEncoder
 
 def preprocess_data(df: pd.DataFrame, dest_path: str = None, dest_filename: str = 'clean_census.csv'):
     ndf = df.drop_duplicates()
-    ndf.columns = [col.strip() for col in ndf.columns]
+    ndf.columns = [col.strip().replace('-', '_') for col in ndf.columns]
     
     # strip whitespaces from column values
     for col in ndf.columns:
@@ -76,6 +76,7 @@ def process_data(
         y = lb.fit_transform(y.values).ravel()
     else:
         X_categorical = encoder.transform(X_categorical)
+        # print('X_categorical after', X_categorical, X_categorical.shape)
         try:
             y = lb.transform(y.values).ravel()
         # Catch the case where y is None because we're doing inference.

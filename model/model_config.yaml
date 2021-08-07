@@ -8,9 +8,9 @@ random_forest:
 categorical_features:
   - workclass
   - education
-  - marital-status
+  - marital_status
   - occupation
   - relationship
   - race
   - sex
-  - native-country
+  - native_country
