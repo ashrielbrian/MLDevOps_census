@@ -2,7 +2,7 @@ import os
 import requests
 import json
 
-ENDPOINT = 'http://localhost:8000/'
+ENDPOINT = 'https://mlops3-census-briant.herokuapp.com/'
 CSV_SAMPLE_PATH = os.path.join(os.path.dirname(__file__), 'sample.csv')
 JSON_SAMPLE_PATH = os.path.join(os.path.dirname(__file__), 'sample.json')
 
