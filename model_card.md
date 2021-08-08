@@ -11,6 +11,8 @@ Brian Tang created this model. It is a random forest classifier using the hyperp
 ## Intended Use
 This model should be used to predict the salary category of a person based off the US census data. Users could be researchers, social anthropologists, or hobbyists.
 
+The web API accepts JSON for individual inference, and a csv file for bulk inference.
+
 ## Training Data
 The data is the [Census Bureau data obtained from Udacity](https://github.com/udacity/nd0821-c3-starter-code/blob/master/starter/data/census.csv). The original data had 32,561 rows and a 80-20 split was used to break this into a train-test set. No stratification was done.
 
